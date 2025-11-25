@@ -4,7 +4,8 @@ import { pgTable, serial, text, varchar, timestamp, integer } from "drizzle-orm/
 
 export const projectsAda = pgTable("projects_ada", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 200 }).notNull(),
+  title: varchar("title", { length: 200 }).notNull(),
+  slug: varchar("slug", { length: 300 }).notNull().unique(),
 });
 
 export const promotions = pgTable("promotions", {
@@ -18,8 +19,8 @@ export const studentProjects = pgTable("student_projects", {
   title: varchar("title", { length: 300 }).notNull(),
   slug: varchar("slug", { length: 300 }).notNull().unique(),
   github_url: text("github_url").notNull(),
-  demo_url: text("demo_url").notNull(),
-  thumbnail_url: text("thumbnail_url").default(""), // optionnel : sinon construire depuis GitHub
+  demo_url: text("demo_url"),
+  thumbnail_url: text("thumbnail_url").default(""),
   created_at: timestamp("created_at").defaultNow().notNull(),
   published_at: timestamp("published_at").default(sql`null`),
   promotion_id: integer("promotion_id").references(() => promotions.id).notNull(),
