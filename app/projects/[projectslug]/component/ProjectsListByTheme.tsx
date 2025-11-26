@@ -1,9 +1,12 @@
+"use server"
 import { db } from "@/db/drizzle";
 import { studentProjects, promotions, projectsAda } from "@/db/schema";
 import { desc, isNotNull, eq } from "drizzle-orm";
-import ProjectCard from "../../components/ProjectCard";
+import ProjectCardDetail from "../[titleslug]/ProjectCardDetail";
+import ProjectCard from "@/app/components/ProjectCard";
 
-export default async function ProjectsList() {
+
+export default async function ProjectsListByTheme({theme}: { theme: string}) {
   const projects = await db
     .select({
       id: studentProjects.id,
@@ -21,6 +24,7 @@ export default async function ProjectsList() {
     .leftJoin(promotions, eq(promotions.id, studentProjects.promotion_id))
     .leftJoin(projectsAda, eq(projectsAda.id, studentProjects.project_ada_id))
     // .where(isNotNull(studentProjects.published_at))
+    .where(eq(projectsAda.slug, theme))
     .orderBy(desc(studentProjects.published_at));
 
   return (
