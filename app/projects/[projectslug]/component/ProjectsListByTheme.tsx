@@ -1,7 +1,7 @@
 import { db } from "@/db/drizzle";
 import { studentProjects, promotions, projectsAda } from "@/db/schema";
 import { desc, isNotNull, eq } from "drizzle-orm";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "../../components/ProjectCard";
 
 export default async function ProjectsList() {
   const projects = await db
