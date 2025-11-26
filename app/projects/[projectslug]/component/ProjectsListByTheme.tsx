@@ -2,7 +2,6 @@
 import { db } from "@/db/drizzle";
 import { studentProjects, promotions, projectsAda } from "@/db/schema";
 import { desc, isNotNull, eq } from "drizzle-orm";
-import ProjectCardDetail from "../[titleslug]/ProjectCardDetail";
 import ProjectCard from "@/app/components/ProjectCard";
 
 

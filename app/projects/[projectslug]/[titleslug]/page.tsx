@@ -1,4 +1,4 @@
-import ProjectCardDetail from "./ProjectCardDetail";
+import ProjectCardDetail from "./component/ProjectCardDetail";
 
 export default async function ProjectDetail({
   params,
