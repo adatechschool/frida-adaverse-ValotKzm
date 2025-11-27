@@ -45,9 +45,9 @@ export default function NavBar({
 
         <form onSubmit={handleSearch} className="flex items-center gap-3">
           <select aria-label="Choisir une catégorie" value={selected} onChange={(e) => setSelected(e.target.value)} className="rounded border px-3 py-2">
-            <option value="">Choisir une catégorie</option>
+            <option value="" className="text-neutral-500">Choisir une catégorie</option>
             {themes.map((t) => (
-              <option key={t.slug} value={t.slug}>
+              <option key={t.slug} value={t.slug} className="text-neutral-600">
                 {t.title}
               </option>
             ))}
