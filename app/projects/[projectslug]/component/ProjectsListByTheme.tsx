@@ -28,7 +28,7 @@ export default async function ProjectsListByTheme({theme}: { theme: string}) {
 
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Projets publiés</h1>
+      <h1 className="text-2xl font-bold mb-4">Projets publiés pour {projects[0].projectAda}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {projects.map((p) => (

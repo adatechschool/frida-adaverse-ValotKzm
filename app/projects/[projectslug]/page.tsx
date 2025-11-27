@@ -8,7 +8,6 @@ export default async function ProjectByTheme({
   const { projectslug: projectSlug } = await params;
   return (
     <div>
-      Projet par thème : {projectSlug}
       <ProjectsListByTheme theme={projectSlug} />
     </div>
   );
