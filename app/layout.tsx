@@ -4,9 +4,8 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import { db } from "@/db/drizzle";
 import { projectsAda, promotions } from "@/db/schema";
-import { asc, eq } from "drizzle-orm";
-import { studentProjects } from "@/db/schema";
-import { redirect } from "next/navigation";
+import { asc } from "drizzle-orm";
+import addProject from "./actions/addProject";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +28,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const themes = await db
-    .select({ title: projectsAda.title, slug: projectsAda.slug, id: projectsAda.id })
+    .select({
+      title: projectsAda.title,
+      slug: projectsAda.slug,
+      id: projectsAda.id,
+    })
     .from(projectsAda)
     .orderBy(asc(projectsAda.title));
 
@@ -37,71 +40,6 @@ export default async function RootLayout({
     .select({ id: promotions.id, name: promotions.name })
     .from(promotions)
     .orderBy(asc(promotions.name));
-
-  // server action : insère un projet puis redirige
-  async function addProject(formData: FormData) {
-    "use server";
-    const title = String(formData.get("title") ?? "").trim();
-    const github_url = String(formData.get("github_url") ?? "").trim();
-    const demo_url = (String(formData.get("demo_url") ?? "").trim() || null) as string | null;
-    const thumbnail_url = (String(formData.get("thumbnail_url") ?? "").trim() || null) as string | null;
-    const promotion_id = Number(formData.get("promotion_id"));
-    const project_ada_id = Number(formData.get("project_ada_id"));
-
-    if (!title || !github_url || !promotion_id || !project_ada_id) {
-      throw new Error("Champs obligatoires manquants");
-    }
-
-    // slug simple + unique check
-    function slugify(str: string) {
-      return str
-        .toLowerCase()
-        .trim()
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, "-");
-    }
-    let baseSlug = slugify(title);
-    let slug = baseSlug;
-    let idx = 1;
-    // vérifier l'existence du slug
-    let exists = await db
-      .select({ id: studentProjects.id })
-      .from(studentProjects)
-      .where(eq(studentProjects.slug, slug));
-    while (exists.length > 0) {
-      slug = `${baseSlug}-${idx++}`;
-      exists = await db
-        .select({ id: studentProjects.id })
-        .from(studentProjects)
-        .where(eq(studentProjects.slug, slug));
-    }
-
-    const now = new Date();
-    await db.insert(studentProjects).values({
-      title,
-      slug,
-      github_url,
-      demo_url,
-      thumbnail_url,
-      promotion_id,
-      project_ada_id,
-      published_at: now,
-    });
-
-    // récupérer le slug de category pour redirect
-    // const projectAdaRow = await db
-    //   .select({ slug: projectsAda.slug })
-    //   .from(projectsAda)
-    //   .where(eq(projectsAda.id, project_ada_id));
-    // const projectAdaSlug = projectAdaRow?.[0]?.slug ?? null;
-
-    // if (projectAdaSlug) {
-    //   redirect(`/projects/${projectAdaSlug}/${slug}`);
-    // } else {
-    //   // fallback : redirige vers liste
-    //   redirect(`/projects/${slug}`);
-    // }
-  }
 
   return (
     <html lang="fr">
