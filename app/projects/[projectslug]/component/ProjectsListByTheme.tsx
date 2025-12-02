@@ -25,8 +25,20 @@ export default async function ProjectsListByTheme({theme}: { theme: string}) {
     // .where(isNotNull(studentProjects.published_at))
     .where(eq(projectsAda.slug, theme))
     .orderBy(desc(studentProjects.published_at));
-
+    
+    const p = projects[0];
+  
+    if (!p) {
+      return (
+        <div className="p-6">
+          <p>Aucun Projets pour ce thème</p>
+        </div>
+      );
+    }
   return (
+
+    
+
     <main className="p-6">
       <h1 className="text-2xl font-bold mb-4">Projets publiés pour {projects[0].projectAda}</h1>
 
