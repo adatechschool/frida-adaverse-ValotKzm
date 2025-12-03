@@ -29,14 +29,13 @@ export default async function ProjectsList() {
     .from(studentProjects)
     .leftJoin(promotions, eq(promotions.id, studentProjects.promotion_id))
     .leftJoin(projectsAda, eq(projectsAda.id, studentProjects.project_ada_id))
-    // .where(isNotNull(studentProjects.published_at))
+    .where(isNotNull(studentProjects.published_at))
     .orderBy(desc(studentProjects.published_at));
 
   const groups = categories.map((cat) => ({
     category: cat,
     projects: projects.filter((p) => p.projectAdaSlug === cat.slug),
   }));
-
 
   return (
     <main className="p-6 space-y-10">
@@ -58,7 +57,6 @@ export default async function ProjectsList() {
             </section>
           )
       )}
-
     </main>
   );
 }

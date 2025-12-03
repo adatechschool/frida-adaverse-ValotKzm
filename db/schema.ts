@@ -1,6 +1,12 @@
 import { sql } from "drizzle-orm";
-import { pgTable, serial, text, varchar, timestamp, integer } from "drizzle-orm/pg-core";
-
+import {
+  pgTable,
+  serial,
+  text,
+  varchar,
+  timestamp,
+  integer,
+} from "drizzle-orm/pg-core";
 
 export const projectsAda = pgTable("projects_ada", {
   id: serial("id").primaryKey(),
@@ -23,6 +29,10 @@ export const studentProjects = pgTable("student_projects", {
   thumbnail_url: text("thumbnail_url").default(""),
   created_at: timestamp("created_at").defaultNow().notNull(),
   published_at: timestamp("published_at").default(sql`null`),
-  promotion_id: integer("promotion_id").references(() => promotions.id).notNull(),
-  project_ada_id: integer("project_ada_id").references(() => projectsAda.id).notNull(),
+  promotion_id: integer("promotion_id")
+    .references(() => promotions.id)
+    .notNull(),
+  project_ada_id: integer("project_ada_id")
+    .references(() => projectsAda.id)
+    .notNull(),
 });
