@@ -34,16 +34,16 @@ export default async function ProjectsListByTheme({
 
   if (!p) {
     return (
-      <div className="p-6">
+      <div className="p-6 space-y-10">
         <p>Aucun Projets pour ce thème</p>
       </div>
     );
   }
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">
-        Projets publiés pour {projects[0].projectAda}
-      </h1>
+    <main className="p-6 space-y-10">
+      <header className="text-2xl font-bold mb-4">
+        <h2>Projets publiés pour {projects[0].projectAda}</h2>
+      </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {projects.map((p) => (

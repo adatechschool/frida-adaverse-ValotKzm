@@ -8,7 +8,6 @@ export default async function ProjectDetail({
   const { projectslug: projectSlug, titleslug: titleSlug } = await params;
   return (
     <div>
-      Projet par thème : {projectSlug}
       <ProjectCardDetail theme={projectSlug} title={titleSlug} />
     </div>
   );
