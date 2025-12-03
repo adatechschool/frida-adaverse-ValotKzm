@@ -41,11 +41,9 @@ export default async function ProjectCardDetail({
 
   return (
     <article className="p-6 max-w-4xl mx-auto">
-      {/* Title + Category */}
       <header className="mb-4 flex justify-center">
         <h1 className="text-3xl font-bold mb-1">{p.title}</h1>
       </header>
-      {/* Thumbnail */}
       {p.thumbnail_url ? (
         <img
           src={p.thumbnail_url}
@@ -58,7 +56,6 @@ export default async function ProjectCardDetail({
         </div>
       )}
 
-      {/* Title + Category */}
       <header className="mb-4">
         <div className="text-sm text-gray-600">
           {p.projectAdaTitle && (
@@ -68,7 +65,6 @@ export default async function ProjectCardDetail({
         </div>
       </header>
 
-      {/* Action buttons */}
       <div className="flex gap-3 mb-6 justify-center">
         {p.github_url && (
           <a
@@ -93,15 +89,11 @@ export default async function ProjectCardDetail({
         )}
       </div>
 
-      {/* Minimal details: published date */}
       {p.published_at && (
         <div className="text-sm text-gray-500 mb-6">
           Publié le {new Date(p.published_at).toLocaleDateString("fr-FR")}
         </div>
       )}
-
-      {/* Placeholder for more content */}
-      <section>{/* Add description or other project details here */}</section>
     </article>
   );
 }
