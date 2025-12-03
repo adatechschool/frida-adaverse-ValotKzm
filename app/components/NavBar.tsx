@@ -52,7 +52,7 @@ export default function NavBar({
             aria-label="Choisir une catégorie"
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
-            className="rounded border px-3 py-2"
+            className="rounded border px-3 py-2 cursor-pointer"
           >
             <option value="" className="text-neutral-500">
               Choisir une catégorie
@@ -66,7 +66,7 @@ export default function NavBar({
 
           <button
             type="submit"
-            className="px-4 py-2 bg-violet-700 text-white rounded hover:opacity-90 disabled:opacity-60"
+            className="px-4 py-2 bg-violet-700 text-white rounded valid:cursor-pointer hover:opacity-90 disabled:opacity-60"
             disabled={!selected}
           >
             Rechercher
@@ -74,7 +74,7 @@ export default function NavBar({
 
           <button
             type="button"
-            className="px-4 py-2 bg-white text-black rounded hover:opacity-90"
+            className="px-4 py-2 bg-white text-black rounded hover:opacity-90 cursor-pointer"
             onClick={() => setOpen(true)}
           >
             Soumettre projet
